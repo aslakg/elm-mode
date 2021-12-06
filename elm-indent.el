@@ -32,7 +32,7 @@
 (require 's)
 
 (with-no-warnings
-  (require 'cl))
+  (require 'cl-lib))
 
 
 ;;; Customizations
