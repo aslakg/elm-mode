@@ -680,7 +680,7 @@ Separate a line of program into valdefs between offside keywords
 and find indentation info for each part."
   (save-excursion
     ;; point is (already) at line-start
-    (assert (eq (point) line-start))
+    ;(assert (eq (point) line-start))
     (let ((elm-indent-info indent-info)
           (start (or (elm-indent-in-comment line-start line-end)
                      (elm-indent-in-string line-start line-end))))
