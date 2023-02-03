@@ -30,10 +30,7 @@
 ;;; Commentary:
 ;;; Code:
 (require 's)
-
-(with-no-warnings
-  (require 'cl-lib))
-
+(require 'cl-lib)
 
 ;;; Customizations
 (defgroup elm-indent nil
@@ -420,7 +417,7 @@ Returns the location of the start of the comment, nil otherwise."
             (if (string-match "\\<type\\>" valname-string)
                 (elm-indent-push-pos-offset valname)
               (elm-indent-push-pos-offset valname 0)))
-        (case                           ; general case
+        (cl-case                           ; general case
             (elm-indent-find-case test)
           ;; "1.1.11"   1= vn gd rh arh
           (1 (elm-indent-push-pos valname)
@@ -527,7 +524,7 @@ Returns the location of the start of the comment, nil otherwise."
                   (elm-indent-push-pos-offset valname))))
         (if (string= elm-indent-current-line-first-ident ":")
             (if valname (elm-indent-push-pos valname))
-          (case                         ; general case
+          (cl-case                         ; general case
               (elm-indent-find-case test)
             ;; "1.1.11"   1= vn gd rh arh
             (1 (if is-where
@@ -616,7 +613,7 @@ than an identifier, a guard or rhs."
       (if (and valname-string           ; special case for start keywords
                (string-match elm-indent-start-keywords-re valname-string))
           (elm-indent-push-pos-offset valname)
-        (case                           ; general case
+        (cl-case                           ; general case
             (elm-indent-find-case test)
           ;; "1.1.11"   1= vn gd rh arh
           (1 (elm-indent-push-pos aft-rhs-sign))
@@ -664,7 +661,7 @@ than an identifier, a guard or rhs."
   "Find indentation information for a value definition."
   (let ((elm-indent-info indent-info))
     (if (< start end-visible)
-        (case curr-line-type
+        (cl-case curr-line-type
           (empty (elm-indent-empty start end end-visible indent-info))
           (ident (elm-indent-ident start end end-visible indent-info))
           (guard (elm-indent-guard start end end-visible indent-info))
@@ -836,7 +833,7 @@ OPEN is the start position of the comment in which point is."
 (defun elm-indent-closing-keyword (start)
   (let ((open (save-excursion
                 (elm-indent-find-matching-start
-                 (case (char-after)
+                 (cl-case (char-after)
                    (?i "\\<\\(?:\\(in\\)\\|let\\)\\>")
                    (?o "\\<\\(?:\\(of\\)\\|case\\)\\>")
                    (?t "\\<\\(?:\\(then\\)\\|if\\)\\>")
